@@ -1,0 +1,79 @@
+{
+  "builders": [
+    {
+      "accelerator": "kvm",
+      "boot_wait": "5s",
+      "disk_interface": "virtio-scsi",
+      "disk_size": 12000,
+      "disk_cache": "unsafe",
+      "disk_discard": "unmap",
+      "format": "raw",
+      "headless": true,
+      "http_directory": "http",
+      "iso_checksum": "5b5e08c490ad16b59b1d9fab0def883a",
+      "iso_checksum_type": "md5",
+      "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
+      "net_device": "virtio-net",
+      "output_directory": "output/windows-2k12r2_standard-x86_64-qemu/",
+      "machine_type": "pc-i440fx-1.7",
+      "floppy_files": [
+        "floppy/drivers/virtio-win-0.1.102/vioscsi/2k12R2/amd64/*.cat",
+        "floppy/drivers/virtio-win-0.1.102/vioscsi/2k12R2/amd64/*.inf",
+        "floppy/drivers/virtio-win-0.1.102/vioscsi/2k12R2/amd64/*.sys",
+        "floppy/drivers/virtio-win-0.1.102/viostor/2k12R2/amd64/*.cat",
+        "floppy/drivers/virtio-win-0.1.102/viostor/2k12R2/amd64/*.inf",
+        "floppy/drivers/virtio-win-0.1.102/viostor/2k12R2/amd64/*.sys",
+        "floppy/drivers/virtio-win-0.1.102/NetKVM/2k12R2/amd64/*.cat",
+        "floppy/drivers/virtio-win-0.1.102/NetKVM/2k12R2/amd64/*.inf",
+        "floppy/drivers/virtio-win-0.1.102/NetKVM/2k12R2/amd64/*.sys",
+        "floppy/common/*",
+        "floppy/windows-2k12r2-standard-x86_64/*"
+      ],
+      "qemuargs": [
+        [
+          "-m",
+          "1024"
+        ]
+      ],
+      "communicator": "winrm",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\"",
+      "winrm_password": "packer",
+      "winrm_username": "Administrator",
+      "winrm_timeout": "1200s",
+      "type": "qemu",
+      "vm_name": "windows-2k12r2_standard-x86_64"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "inline": [
+        "net user Administrator packer"
+      ]
+    },
+    {
+      "type": "windows-shell",
+      "remote_path": "C:/Windows/Temp/script.bat",
+      "execute_command": "cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+        "scripts/enable-rdp.bat",
+        "scripts/execution-policy-unrestricted.bat",
+        "scripts/unlimited-password-expiration.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "compress",
+        "format": "bgzf",
+        "metadata": true,
+        "output": "output/windows-2k12r2_standard-x86_64-compress/"
+      },
+      {
+        "type": "checksum",
+        "output": "output/windows-2k12r2_standard-x86_64-compress/"
+      }
+    ]
+  ]
+}
