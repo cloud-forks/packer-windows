@@ -51,8 +51,8 @@
       "execute_command": "cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
         "scripts/enable-rdp.bat",
-        "firewall-open-ping.bat",
-        "firewall-open-rdp.bat",
+        "scripts/firewall-open-ping.bat",
+        "scripts/firewall-open-rdp.bat",
         "scripts/cleanup.bat"
       ]
     }
