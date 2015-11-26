@@ -4,7 +4,7 @@
       "accelerator": "kvm",
       "boot_wait": "5s",
       "disk_interface": "virtio-scsi",
-      "disk_size": 12000,
+      "disk_size": 10000,
       "disk_cache": "unsafe",
       "disk_discard": "unmap",
       "format": "raw",
@@ -50,7 +50,10 @@
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "scripts/enable-rdp.bat"
+        "scripts/enable-rdp.bat",
+        "firewall-open-ping.bat",
+        "firewall-open-rdp.bat",
+        "scripts/cleanup.bat"
       ]
     }
   ],
