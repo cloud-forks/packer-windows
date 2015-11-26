@@ -47,18 +47,10 @@
   "provisioners": [
     {
       "type": "windows-shell",
-      "inline": [
-        "net user Administrator packer"
-      ]
-    },
-    {
-      "type": "windows-shell",
       "remote_path": "C:/Windows/Temp/script.bat",
       "execute_command": "cmd /c C:/Windows/Temp/script.bat",
       "scripts": [
-        "scripts/enable-rdp.bat",
-        "scripts/execution-policy-unrestricted.bat",
-        "scripts/unlimited-password-expiration.bat"
+        "scripts/enable-rdp.bat"
       ]
     }
   ],
