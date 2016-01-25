@@ -7,12 +7,12 @@
       "disk_size": 10000,
       "disk_cache": "unsafe",
       "disk_discard": "unmap",
-      "format": "raw",
+      "disk_compression": true,
+      "iso_skip_cache": true,
+      "format": "qcow2",
       "headless": true,
       "http_directory": "http",
-      "iso_checksum": "5b5e08c490ad16b59b1d9fab0def883a",
-      "iso_checksum_type": "md5",
-      "iso_url": "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO",
+      "iso_urls": [ "http://care.dlservice.microsoft.com/dl/download/6/2/A/62A76ABB-9990-4EFC-A4FE-C7D698DAEB96/9600.17050.WINBLUE_REFRESH.140317-1640_X64FRE_SERVER_EVAL_EN-US-IR3_SSS_X64FREE_EN-US_DV9.ISO" ],
       "net_device": "virtio-net",
       "output_directory": "output/windows-2k12r2_standard-x86_64-qemu/",
       "machine_type": "pc-i440fx-1.7",
@@ -56,19 +56,5 @@
         "scripts/cleanup.bat"
       ]
     }
-  ],
-  "post-processors": [
-    [
-      {
-        "type": "compress",
-        "format": "bgzf",
-        "metadata": true,
-        "output": "output/windows-2k12r2_standard-x86_64-compress/"
-      },
-      {
-        "type": "checksum",
-        "output": "output/windows-2k12r2_standard-x86_64-compress/"
-      }
-    ]
   ]
 }
